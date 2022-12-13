@@ -15,10 +15,20 @@ namespace ASP_CORE_BASIC_NET_6_API.Controllers
         }
 
         [HttpGet]
+        [Route("/GetAllAssets")]
         public IActionResult GetAllAssets()
         {
             var assets = _assetService.GetAllAssets();
             return Ok(assets);
+        }
+
+
+        [HttpGet]
+        [Route("/GetAssetById/{id}")]
+        public IActionResult Get(int id)
+        {
+            var users = _assetService.GetAssetById(id);
+            return Ok(users);
         }
     }
 }

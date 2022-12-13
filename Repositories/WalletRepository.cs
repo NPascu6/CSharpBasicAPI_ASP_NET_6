@@ -20,5 +20,12 @@ namespace ASP_CORE_BASIC_NET_6_API.Repositories
                 .Include(w => w.Assets)
                 .ToList();
         }
+
+        public Wallet? Get(int id)
+        {
+            return _dbContext.Wallets
+                .Include(w => w.Assets)
+                .FirstOrDefault(w => w.WalletId == id);
+        }
     }
 }

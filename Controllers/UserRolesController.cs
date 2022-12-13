@@ -1,4 +1,5 @@
-﻿using ASP_CORE_BASIC_NET_6_API.Services.Interfaces;
+﻿using ASP_CORE_BASIC_NET_6_API.Services;
+using ASP_CORE_BASIC_NET_6_API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP_CORE_BASIC_NET_6_API.Controllers
@@ -16,11 +17,20 @@ namespace ASP_CORE_BASIC_NET_6_API.Controllers
 
 
         [HttpGet]
+        [Route("/GetAllUserRoles")]
         public IActionResult GetAll()
         {
             var userRoles = _userRolesService.GetAllUserRoles();
 
             return Ok(userRoles);
+        }
+
+        [HttpGet]
+        [Route("/GetUserRoleById/{id}")]
+        public IActionResult Get(int id)
+        {
+            var user = _userRolesService.GetUserRoleById(id);
+            return Ok(user);
         }
     }
 }

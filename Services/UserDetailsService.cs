@@ -23,5 +23,21 @@ namespace ASP_CORE_BASIC_NET_6_API.Services
 
             return allUsersDetailsDTOs;
         }
+    
+        public UserDetailsDTO GetUserDetailsById(int id)
+        {
+            var userDetails = _userDetailsRepository.Get(id);
+            var userDetailsDTO = _mapper.Map<UserDetailsDTO>(userDetails);
+
+            return userDetailsDTO;
+        }
+
+        public UserDetailsDTO GetUserDetailsByUserId(int id)
+        {
+            var userDetails = _userDetailsRepository.GetByUserId(id);
+            var userDetailsDTO = _mapper.Map<UserDetailsDTO>(userDetails);
+
+            return userDetailsDTO;
+        }
     }
 }

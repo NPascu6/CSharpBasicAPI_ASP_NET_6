@@ -17,5 +17,10 @@ namespace ASP_CORE_BASIC_NET_6_API.Repositories
         {
             return _dbContext.UserRoles.ToList();
         }
+
+        public UserRole? Get(int id)
+        {
+            return _dbContext.UserRoles.FirstOrDefault(ur => ur.UserRoleId == id);
+        }
     }
 }

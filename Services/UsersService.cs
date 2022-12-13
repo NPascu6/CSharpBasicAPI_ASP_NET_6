@@ -23,5 +23,13 @@ namespace ASP_CORE_BASIC_NET_6_API.Services
 
             return usersDTO;
         }
+
+        public UserDTO GetUserById(int id)
+        {
+            var user = _userRepository.Get(id);
+            var userDTO = _mapper.Map<UserDTO>(user);
+
+            return userDTO;
+        }
     }
 }

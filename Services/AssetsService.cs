@@ -23,5 +23,13 @@ namespace ASP_CORE_BASIC_NET_6_API.Services
 
             return allAssetsDTOs;
         }
+
+        public AssetDTO GetAssetById(int id)
+        {
+            var asset = _assetRepository.Get(id);
+            var assetDTO = _mapper.Map<AssetDTO>(asset);
+
+            return assetDTO;
+        }
     }
 }

@@ -22,5 +22,13 @@ namespace ASP_CORE_BASIC_NET_6_API.Services
 
             return allWalletsDTOs;
         }
+
+        public WalletDTO GetWalletById(int id)
+        {
+            var wallet = _walletRepository.Get(id);
+            var walletDTO = _mapper.Map<WalletDTO>(wallet);
+
+            return walletDTO;
+        }
     }
 }

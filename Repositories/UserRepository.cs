@@ -25,5 +25,17 @@ namespace ASP_CORE_BASIC_NET_6_API.Repositories
                 .Include(c => c.UserDetails)
                 .ToList();
         }
+
+        public User? Get(int id)
+        {
+            return _dbContext.Users
+                .Include(c => c.UserDetails)
+                    .ThenInclude(d => d.Wallet)
+                    .ThenInclude(w => w.Assets)
+                .Include(c => c.UserDetails)
+                    .ThenInclude(d => d.UserRole)
+                .Include(c => c.UserDetails)
+                .FirstOrDefault(u => u.UserId == id);
+        }
     }
 }

@@ -22,9 +22,21 @@ namespace ASP_CORE_BASIC_NET_6_API.Repositories
                 .Include(d => d.UserRole)
                 .ToList();
         }
+
+        public UserDetails? Get(int id)
+        {
+            return _dbContext.UserDetails.Include(d => d.Wallet)
+                    .ThenInclude(w => w.Assets)
+                .Include(d => d.UserRole)
+                .FirstOrDefault(userDetails => userDetails.UserDetailsId == id);
+        }
+
         public UserDetails? GetByUserId(int id)
         {
-            return _dbContext.UserDetails.FirstOrDefault(userDetails => userDetails.UserId == id);
+            return _dbContext.UserDetails.Include(d => d.Wallet)
+                    .ThenInclude(w => w.Assets)
+                .Include(d => d.UserRole)
+                .FirstOrDefault(userDetails => userDetails.UserId == id);
         }
 
     }

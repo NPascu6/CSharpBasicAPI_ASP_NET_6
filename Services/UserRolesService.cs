@@ -23,5 +23,13 @@ namespace ASP_CORE_BASIC_NET_6_API.Services
 
             return allRolesDTOs;
         }
+
+        public UserRoleDTO GetUserRoleById(int id)
+        {
+            var userRole = _userRolesRepository.Get(id);
+            var roleDTO = _mapper.Map<UserRoleDTO>(userRole);
+
+            return roleDTO;
+        }
     }
 }
