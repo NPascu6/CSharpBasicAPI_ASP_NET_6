@@ -2,8 +2,6 @@
 {
     public class AssetDTO
     {
-        public Guid Id { get; set; }
-        public Guid WalletId { get; set; }
         public string? AssetName { get; set; }
         public double? AssetQuantity { get; set; }
     }

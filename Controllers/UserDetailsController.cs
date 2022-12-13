@@ -1,11 +1,10 @@
-using ASP_CORE_BASIC_NET_6_API.Repositories.Interfaces;
 using ASP_CORE_BASIC_NET_6_API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP_CORE_BASIC_NET_6_API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Users Details")]
     public class UserDetailsController : Controller
     {
         private readonly IUserDetailsService _userDetailsService;

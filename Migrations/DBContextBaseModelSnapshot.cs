@@ -24,9 +24,11 @@ namespace ASPCOREBASICNET6API.Migrations
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.Asset", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("AssetId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssetId"));
 
                     b.Property<string>("AssetName")
                         .HasColumnType("nvarchar(max)");
@@ -34,10 +36,10 @@ namespace ASPCOREBASICNET6API.Migrations
                     b.Property<double?>("AssetQuantity")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("WalletId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("WalletId")
+                        .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AssetId");
 
                     b.HasIndex("WalletId");
 
@@ -46,9 +48,11 @@ namespace ASPCOREBASICNET6API.Migrations
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -59,16 +63,18 @@ namespace ASPCOREBASICNET6API.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.UserDetails", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("UserDetailsId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserDetailsId"));
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -79,72 +85,76 @@ namespace ASPCOREBASICNET6API.Migrations
                     b.Property<int?>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("UserRoleId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("UserRoleId")
+                        .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int>("WalletId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserDetailsId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
 
                     b.HasIndex("UserRoleId");
 
+                    b.HasIndex("WalletId");
+
                     b.ToTable("UserDetails");
                 });
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.UserRole", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("UserRoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<int>("RoleId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"));
+
+                    b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("RoleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserRoleId");
 
                     b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.Wallet", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("WalletId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("UserDetailsId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WalletId"));
 
                     b.Property<string>("WalletName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserDetailsId")
-                        .IsUnique()
-                        .HasFilter("[UserDetailsId] IS NOT NULL");
+                    b.HasKey("WalletId");
 
                     b.ToTable("Wallets");
                 });
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.Asset", b =>
                 {
-                    b.HasOne("ASP_CORE_BASIC_NET_6_API.Models.Domain.Wallet", null)
+                    b.HasOne("ASP_CORE_BASIC_NET_6_API.Models.Domain.Wallet", "Wallet")
                         .WithMany("Assets")
                         .HasForeignKey("WalletId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.UserDetails", b =>
                 {
-                    b.HasOne("ASP_CORE_BASIC_NET_6_API.Models.Domain.User", null)
+                    b.HasOne("ASP_CORE_BASIC_NET_6_API.Models.Domain.User", "User")
                         .WithOne("UserDetails")
                         .HasForeignKey("ASP_CORE_BASIC_NET_6_API.Models.Domain.UserDetails", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -152,26 +162,27 @@ namespace ASPCOREBASICNET6API.Migrations
 
                     b.HasOne("ASP_CORE_BASIC_NET_6_API.Models.Domain.UserRole", "UserRole")
                         .WithMany()
-                        .HasForeignKey("UserRoleId");
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ASP_CORE_BASIC_NET_6_API.Models.Domain.Wallet", "Wallet")
+                        .WithMany()
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
 
                     b.Navigation("UserRole");
-                });
 
-            modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.Wallet", b =>
-                {
-                    b.HasOne("ASP_CORE_BASIC_NET_6_API.Models.Domain.UserDetails", null)
-                        .WithOne("Wallet")
-                        .HasForeignKey("ASP_CORE_BASIC_NET_6_API.Models.Domain.Wallet", "UserDetailsId");
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.User", b =>
                 {
-                    b.Navigation("UserDetails");
-                });
-
-            modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.UserDetails", b =>
-                {
-                    b.Navigation("Wallet");
+                    b.Navigation("UserDetails")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ASP_CORE_BASIC_NET_6_API.Models.Domain.Wallet", b =>

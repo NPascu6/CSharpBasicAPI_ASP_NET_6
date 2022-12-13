@@ -1,12 +1,10 @@
-﻿using ASP_CORE_BASIC_NET_6_API.Repositories;
-using ASP_CORE_BASIC_NET_6_API.Repositories.Interfaces;
-using ASP_CORE_BASIC_NET_6_API.Services.Interfaces;
+﻿using ASP_CORE_BASIC_NET_6_API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP_CORE_BASIC_NET_6_API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Users Roles")]
     public class UserRolesController : Controller
     {
         private readonly IUserRolesService _userRolesService;

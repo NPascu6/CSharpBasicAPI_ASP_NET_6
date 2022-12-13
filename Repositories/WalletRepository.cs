@@ -1,6 +1,7 @@
 ﻿using ASP_CORE_BASIC_NET_6_API.Data;
 using ASP_CORE_BASIC_NET_6_API.Models.Domain;
 using ASP_CORE_BASIC_NET_6_API.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP_CORE_BASIC_NET_6_API.Repositories
 {
@@ -15,7 +16,9 @@ namespace ASP_CORE_BASIC_NET_6_API.Repositories
 
         public IEnumerable<Wallet> GetAll()
         {
-            return _dbContext.Wallets.ToList();
+            return _dbContext.Wallets
+                .Include(w => w.Assets)
+                .ToList();
         }
     }
 }

@@ -31,7 +31,7 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IAssetsService, AssetsService>();
 builder.Services.AddScoped<IUserRolesService, UserRolesService>();
 builder.Services.AddScoped<IWalletService, WalletsService>();
-builder.Services.AddScoped<IAssetsService, AssetsService>();
+builder.Services.AddScoped<IUserDetailsService, UserDetailsService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ASP_CORE_BASIC_NET_6_API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Users")]
     public class UserController : Controller
     {
         private readonly IUsersService _usersService;
