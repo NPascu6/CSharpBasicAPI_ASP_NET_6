@@ -1,3 +1,5 @@
+--Script to create test data.
+
 INSERT INTO UserRoles(RoleId, RoleName)
 VALUES (1, 'Pro');
 INSERT INTO UserRoles(RoleId, RoleName)
@@ -33,6 +35,8 @@ VALUES (2, 'Test Asset User 1', 202.32);
 INSERT INTO Assets(WalletId, AssetName, AssetQuantity)
 VALUES (3, 'Test Asset Trial 1', 42.1112);
 
+
+--Script to delete test data tables.
 
 GO
 

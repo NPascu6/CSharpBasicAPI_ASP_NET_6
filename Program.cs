@@ -4,6 +4,7 @@ using ASP_CORE_BASIC_NET_6_API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using ASP_CORE_BASIC_NET_6_API.Services.Interfaces;
 using ASP_CORE_BASIC_NET_6_API.Services;
+using ASP_CORE_BASIC_NET_6_API.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -19,19 +20,11 @@ builder.Services.AddDbContext<DBContextBase>(options =>
 });
 
 
-//Repositories Injection
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserDetailsRepository, UserDetailsRepository>();
-builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
-builder.Services.AddScoped<IWalletRepository, WalletRepository>();
-builder.Services.AddScoped<IAssetRepository, AssetRepository>();
+//Repository dep injection
+RepositoryHelper.Configure(builder);
 
-//Services Injection
-builder.Services.AddScoped<IUsersService, UsersService>();
-builder.Services.AddScoped<IAssetsService, AssetsService>();
-builder.Services.AddScoped<IUserRolesService, UserRolesService>();
-builder.Services.AddScoped<IWalletService, WalletsService>();
-builder.Services.AddScoped<IUserDetailsService, UserDetailsService>();
+//Services dep Injection
+ServicesHelper.Configure(builder);
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
